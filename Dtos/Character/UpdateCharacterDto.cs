@@ -1,10 +1,11 @@
+using System;
 using learn_net_core.Models;
 
 namespace learn_net_core.Dtos.Character
 {
     public class UpdateCharacterDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = "frodo";
         public int HitPoints { get; set; } = 100;
         public int Strength { get; set; } = 10;

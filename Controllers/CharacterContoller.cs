@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace learn_net_core.Controllers
             return Ok(await _characterService.GetAllCharacters());
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSingle(int id)
+        public async Task<IActionResult> GetSingle(Guid id)
         {
             return Ok(await _characterService.GetCharacterById(id));
         }
@@ -43,7 +44,7 @@ namespace learn_net_core.Controllers
             return Ok(response);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCharacter(int id)
+        public async Task<IActionResult> DeleteCharacter(Guid id)
         {
             ServiceResponse<List<GetCharacterDto>> response = await _characterService.DeleteCharacter(id);
             if (response.Data == null)
