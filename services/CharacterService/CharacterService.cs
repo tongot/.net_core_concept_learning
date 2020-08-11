@@ -51,7 +51,7 @@ namespace learn_net_core.services.CharacterService
         public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             ServiceResponse<List<GetCharacterDto>> response = new ServiceResponse<List<GetCharacterDto>>();
-            response.Data = (_db.characters.Select(c => _mapper.Map<GetCharacterDto>(c))).ToList();
+            response.Data = await (_db.characters.Select(c => _mapper.Map<GetCharacterDto>(c))).ToListAsync();
             return response;
         }
 

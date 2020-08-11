@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using learn_net_core.Dtos.Character;
 using learn_net_core.Dtos.Student;
+using learn_net_core.Dtos.UserAccount;
 using learn_net_core.Models;
 using learn_net_core.services.StudentService;
 
@@ -21,6 +22,8 @@ namespace learn_net_core
             CreateMap<StudentDto, Student>();
             CreateMap<StrengthDto, Strength>();
             CreateMap<Strength, StrengthDto>();
+            CreateMap<UserAccount, UserInfoDTO>();
+            CreateMap<RegisterDTO, UserAccount>();
         }
     }
 }

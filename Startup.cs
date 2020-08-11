@@ -1,14 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using AutoMapper;
 using learn_net_core.Models;
 using learn_net_core.services.CharacterService;
 using learn_net_core.services.StudentService;
+using learn_net_core.services.UserAccountService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,10 +33,18 @@ namespace learn_net_core
             services.AddDbContext<CharacterContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("CharacterConnection")
             ));
+            services.AddIdentity<UserAccount, IdentityRole>()
+                  .AddEntityFrameworkStores<CharacterContext>()
+                  .AddDefaultTokenProviders();
+            services.AddAuthentication("OAuth").AddJwtBearer("OAuth", config =>
+            {
+
+            });
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICharacterService, CharacterService>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IUserAccountService, UserAccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,6 +3,7 @@ using learn_net_core.services.StudentService;
 using Microsoft.AspNetCore.Mvc;
 using learn_net_core.Dtos.Student;
 using learn_net_core.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace learn_net_core.Controllers
 {

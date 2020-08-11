@@ -39,7 +39,7 @@ namespace learn_net_core.services.StudentService
         public async Task<ServiceResponse<List<StudentDto>>> GetAllStudents()
         {
             ServiceResponse<List<StudentDto>> response = new ServiceResponse<List<StudentDto>>();
-            response.Data = (_db.students.Include(x => x.strengths).Select(s => _map.Map<Student, StudentDto>(s))).ToList();
+            response.Data = await (_db.students.Include(x => x.strengths).Select(s => _map.Map<Student, StudentDto>(s))).ToListAsync();
             return response;
         }
         public List<StudentDto> GetStrength(ICollection<Strength> strength)
