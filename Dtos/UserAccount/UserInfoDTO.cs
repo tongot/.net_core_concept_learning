@@ -7,6 +7,6 @@ namespace learn_net_core.Dtos.UserAccount
         public string Email { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public List<string> Roles { get; set; }
+        public string token { get; set; }
     }
 }

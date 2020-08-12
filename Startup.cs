@@ -5,6 +5,8 @@ using learn_net_core.Models;
 using learn_net_core.services.CharacterService;
 using learn_net_core.services.StudentService;
 using learn_net_core.services.UserAccountService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,16 +32,20 @@ namespace learn_net_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<CharacterContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("CharacterConnection")
             ));
             services.AddIdentity<UserAccount, IdentityRole>()
                   .AddEntityFrameworkStores<CharacterContext>()
                   .AddDefaultTokenProviders();
-            services.AddAuthentication("OAuth").AddJwtBearer("OAuth", config =>
-            {
-
-            });
+            services.ConfigureJwtAuthentication();
+            services.AddAuthorization(
+                config =>
+                {
+                    config.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build();
+                });
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICharacterService, CharacterService>();
@@ -58,9 +64,8 @@ namespace learn_net_core
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

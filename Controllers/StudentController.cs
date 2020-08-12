@@ -17,6 +17,7 @@ namespace learn_net_core.Controllers
             _students = students;
 
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

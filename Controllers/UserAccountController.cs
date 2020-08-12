@@ -26,5 +26,15 @@ namespace learn_net_core.Controllers
             }
             return BadRequest(response);
         }
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LogInDto logInUser)
+        {
+            ServiceResponse<UserInfoDTO> response = await _user.SignIn(logInUser);
+            if (response.Data != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
     }
 }
